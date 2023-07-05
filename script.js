@@ -14,7 +14,7 @@ const computerRock = document.getElementById("computerRock");
 const computerPaper = document.getElementById("computerPaper");
 const computerScissors = document.getElementById("computerScissors");
 const computerLizard = document.getElementById("computerLizard");
-const computerSpock = document.getElementById("computerRock");
+const computerSpock = document.getElementById("computerSpock");
 
 const allGameIcons = document.querySelectorAll(".far");
 
@@ -26,6 +26,8 @@ const choices = {
   spock: { name: "Spock", defeats: ["scissors", "rock"] },
 };
 
+let computerChoice = "";
+
 // Reset all selected icons
 function resetSelected() {
   allGameIcons.forEach((icon) => {
@@ -33,9 +35,60 @@ function resetSelected() {
   });
 }
 
+//  Random computer choice
+function computerRandomChoice() {
+  const computerChoiceNumber = Math.random();
+  if (computerChoiceNumber < 0.2) {
+    computerChoice = "rock";
+  } else if (computerChoiceNumber <= 0.4) {
+    computerChoice = "paper";
+  } else if (computerChoiceNumber <= 0.6) {
+    computerChoice = "scissors";
+  } else if (computerChoiceNumber <= 0.8) {
+    computerChoice = "lizard";
+  } else {
+    computerChoice = "spock";
+  }
+}
+
+//  Add 'selected' styling & computer choice
+function displayComputerChoice() {
+  switch (computerChoice) {
+    case "rock":
+      computerRock.classList.add("selected");
+      computerChoiceEl.textContent = " --- Rock";
+      break;
+    case "paper":
+      computerPaper.classList.add("selected");
+      computerChoiceEl.textContent = " --- Paper";
+      break;
+    case "scissors":
+      computerScissors.classList.add("selected");
+      computerChoiceEl.textContent = " --- Scissors";
+      break;
+    case "lizard":
+      computerLizard.classList.add("selected");
+      computerChoiceEl.textContent = " --- Lizard";
+      break;
+    case "spock":
+      computerSpock.classList.add("selected");
+      computerChoiceEl.textContent = " --- Spock";
+      break;
+    default:
+      break;
+  }
+}
+
+// call functions to process turn
+function checkResult() {
+  resetSelected();
+  computerRandomChoice();
+  displayComputerChoice();
+}
+
 // Passing Player selection value and styling icons
 function select(playerChoice) {
-  resetSelected();
+  checkResult();
   // Add 'selected' styling & playerchoice
   switch (playerChoice) {
     case "rock":
